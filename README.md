@@ -8,6 +8,7 @@ A Claude Code plugin for managing a shared todo list backed by a GitHub Gist. In
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.0.1 | 2026-03-12 | Guided install flow, stable env file path for marketplace installs, version bump skills |
 | 1.0.0 | 2026-03-12 | Initial release with full CRUD commands, due dates, priority tiers, and daily agenda view |
 
 ## Installation
@@ -96,7 +97,7 @@ To add a new command:
    ---
    ```
 3. Write step-by-step instructions in the body
-4. Source `todo-gist.env` for the gist ID — never hardcode it
+4. Source `~/.claude/todo-gist.env` for the gist ID — never hardcode it
 5. Update the **Commands** table in this README
 6. Open a pull request
 
@@ -121,6 +122,6 @@ todo-plugin/
 │   ├── show.md              # Display full todo list
 │   ├── today.md             # Daily agenda view
 │   └── undo.md              # Re-open a completed item
-├── todo-gist.env            # Your gist ID (gitignored)
+├── todo-gist.env            # Template (actual config at ~/.claude/todo-gist.env)
 └── README.md
 ```

@@ -8,12 +8,12 @@ description: Show today's agenda — due/overdue items, then high priority, then
 
 Show the most important items for today. This is a triaged view, not the full list.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/plugins/local/todo/todo-gist.env`
+**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/plugins/local/todo/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/plugins/local/todo/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
+1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
+2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
 3. Scan ALL open items (`- [ ]`) across ALL projects for `{due: YYYY-MM-DD}` tags. Compare each due date to today's date.
 4. Display based on this priority cascade:
 

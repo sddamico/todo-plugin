@@ -8,7 +8,7 @@ description: Configure the gist ID used by the todo list
 
 Configure which GitHub Gist backs the shared todo list.
 
-**Env file:** `~/.claude/plugins/local/todo/todo-gist.env`
+**Env file:** `~/.claude/todo-gist.env`
 
 ## Steps
 
@@ -22,7 +22,7 @@ Configure which GitHub Gist backs the shared todo list.
    - A `# Todo List` header
    - A `<!-- last-updated:` comment
    - At least one `## Project:` section with `### High`, `### Medium`, and `### Low` subsections
-5. If valid: write `TODO_GIST_ID=<id>` to `~/.claude/plugins/local/todo/todo-gist.env` using the Write tool. Confirm: "Todo list configured with gist `<id>`."
+5. If valid: write `TODO_GIST_ID=<id>` to `~/.claude/todo-gist.env` using the Write tool. Confirm: "Todo list configured with gist `<id>`."
 6. If invalid: warn the user about exactly what's missing or wrong with the format. Do NOT save the gist ID. Suggest they either fix the gist or use the "Create new gist" option instead.
 
 ### New gist flow
@@ -45,5 +45,5 @@ Configure which GitHub Gist backs the shared todo list.
    ```
    Replace `TIMESTAMP` with the current UTC timestamp in ISO 8601 format (e.g., `2026-03-12T15:30:00Z`).
 3. Extract the gist ID from the URL in the command output (the last path segment of the URL).
-4. Write `TODO_GIST_ID=<id>` to `~/.claude/plugins/local/todo/todo-gist.env` using the Write tool.
+4. Write `TODO_GIST_ID=<id>` to `~/.claude/todo-gist.env` using the Write tool.
 5. Confirm: "Todo list created and configured! Gist URL: `<url>`"

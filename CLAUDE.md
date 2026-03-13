@@ -12,7 +12,7 @@ Claude Code plugin for managing a shared todo list backed by a GitHub Gist. Prov
 .claude-plugin/plugin.json     # Plugin manifest
 .claude-plugin/marketplace.json # Marketplace entry
 commands/                       # Slash commands (auto-discovered .md files)
-todo-gist.env                   # User's gist ID configuration
+todo-gist.env                   # User's gist ID (template; actual config at ~/.claude/todo-gist.env)
 ```
 
 ## Adding a New Command
@@ -20,7 +20,7 @@ todo-gist.env                   # User's gist ID configuration
 1. Create a `.md` file under `commands/` using kebab-case (e.g., `commands/my-command.md`)
 2. Add YAML frontmatter with `model`, `allowed-tools`, and `description`
 3. The `description` field controls when Claude activates the command
-4. All commands should source `todo-gist.env` to get the gist ID rather than hardcoding it
+4. All commands should source `~/.claude/todo-gist.env` to get the gist ID rather than hardcoding it
 
 ## Setup
 
