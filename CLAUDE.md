@@ -24,7 +24,10 @@ todo-gist.env                   # User's gist ID configuration
 
 ## Setup
 
-After installing the plugin, run `/todo:install` to configure your GitHub Gist ID. The gist should contain a `todo.md` file with the expected markdown format (projects with High/Medium/Low priority sections).
+After installing the plugin, run `/todo:install` to set up your todo list. The install command offers two options:
+
+1. **Existing gist** — provide a gist ID and the command validates its format before saving
+2. **Create new gist** — the command creates a properly formatted gist via `gh gist create` and saves the ID automatically
 
 ## Conventions
 

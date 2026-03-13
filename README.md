@@ -22,13 +22,14 @@ claude
 
 ### Step 2: Configure your Gist
 
-Create a GitHub Gist with a `todo.md` file, then run:
-
 ```
 /todo:install
 ```
 
-This will prompt you for your Gist ID and save it locally.
+This will ask whether you want to connect an **existing gist** or **create a new one**:
+
+- **Existing gist** — provide your Gist ID and the command validates its format before saving
+- **Create new gist** — the command creates a properly formatted `todo.md` gist for you automatically
 
 ### Step 3: Enable auto-update (recommended)
 
