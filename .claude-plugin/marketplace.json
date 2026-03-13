@@ -1,0 +1,11 @@
+{
+  "name": "todo-plugin",
+  "owner": {"name": "sddamico"},
+  "plugins": [
+    {
+      "name": "todo",
+      "source": "./",
+      "description": "Manage your shared todo list stored in a GitHub Gist. Sub-commands for adding, listing, completing, and organizing todo items across projects."
+    }
+  ]
+}
