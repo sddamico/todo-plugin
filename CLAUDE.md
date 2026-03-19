@@ -36,5 +36,5 @@ After installing the plugin, run `/todo:install` to set up your todo list. The i
 - Read-only commands (show, list, today, projects) need zero tool calls
 - Write commands use heredoc piped to `/dev/stdin` instead of tmp files
 - Due dates are stored as `{due: YYYY-MM-DD}` tags inline with items
-- Creation dates are stored as `(YYYY-MM-DD)` at the end of item text
+- Creation dates are stored as `(created: YYYY-MM-DD)` at the end of item text
 - Commands run on Haiku model for speed

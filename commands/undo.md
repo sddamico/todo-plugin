@@ -22,7 +22,7 @@ The user's input after `/todo:undo` is a fuzzy text match for the item to re-ope
 
 1. Find completed items (`- [x]`) in the todo list above matching the text (case-insensitive substring)
 2. If multiple matches, ask the user to clarify
-3. Change `- [x]` to `- [ ]` for the matched item
+3. Change `- [x]` to `- [ ]` for the matched item and remove any `(done: YYYY-MM-DD)` tag
 4. Update `<!-- last-updated: ... -->` timestamp
 5. Write back via heredoc: `cat <<'EOF' | gh gist edit <gist-id> --filename todo.md /dev/stdin`...`EOF`
 6. Confirm: "Re-opened '<item>'"

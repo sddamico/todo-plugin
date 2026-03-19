@@ -13,8 +13,8 @@ Show the most important items for today. This is a triaged view, not the full li
 
 ## Steps
 
-1. Scan ALL open items (`- [ ]`) across ALL projects in the todo list above for `{due: YYYY-MM-DD}` tags. Compare each due date to today's date.
-4. Display based on this priority cascade:
+1. Scan ALL open items (`- [ ]`) across ALL projects in the todo list above for `{due: YYYY-MM-DD}` tags (curly braces only). Compare each due date to today's date. Ignore `(created: ...)` dates — those are creation dates, not due dates.
+2. Display based on this priority cascade:
 
 ### Tier 1: Due or overdue items exist
 If any open items are due today or overdue, display them grouped by project:

@@ -22,12 +22,10 @@ The user's input after `/todo:list` is an optional filter:
 ## Steps
 
 1. Parse and filter items from the todo list above based on user input (case-insensitive matching on project names)
-3. Display only open items (`- [ ]`), grouped by project and priority
-4. For items with a `{due: YYYY-MM-DD}` tag, compare the due date to today's date:
+2. Display only open items (`- [ ]`), grouped by project and priority
+3. For items with a `{due: YYYY-MM-DD}` tag (curly braces only), compare the due date to today's date. Ignore `(created: ...)` dates — those are creation dates, not due dates:
    - **Past due**: prefix the item line with `🔴` and append `**OVERDUE**`
    - **Due today**: prefix the item line with `🟡` and append `**DUE TODAY**`
    - **Future due**: show the due date normally, no special formatting
    - Strip the raw `{due: ...}` tag from display and show it as `(due YYYY-MM-DD)` instead
 5. If no items match, say so
-
-This is a read-only command — do not write back to the gist.
