@@ -1,5 +1,5 @@
 {
   "name": "todo",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Manage your shared todo list stored in a GitHub Gist. Sub-commands for adding, listing, completing, and organizing todo items across projects."
 }
