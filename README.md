@@ -8,6 +8,7 @@ A Claude Code plugin for managing a shared todo list backed by a GitHub Gist. In
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.1.0 | 2026-03-18 | Pre-fetch gist content with `!`command`` syntax for faster commands; read-only commands now need zero tool calls |
 | 1.0.1 | 2026-03-12 | Guided install flow, stable env file path for marketplace installs, version bump skills |
 | 1.0.0 | 2026-03-12 | Initial release with full CRUD commands, due dates, priority tiers, and daily agenda view |
 

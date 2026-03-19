@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), mcp:github:get_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*)
 description: List all project names in the todo list
 ---
 
@@ -8,13 +8,12 @@ description: List all project names in the todo list
 
 Show all project names from the todo list.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-2. Extract all `## Project: <name>` headers
-3. List them with a count of open items in each
+1. Extract all `## Project: <name>` headers from the todo list above
+2. List them with a count of open items in each
 
 This is a read-only command — do not write back to the gist.

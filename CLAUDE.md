@@ -18,9 +18,10 @@ todo-gist.env                   # User's gist ID (template; actual config at ~/.
 ## Adding a New Command
 
 1. Create a `.md` file under `commands/` using kebab-case (e.g., `commands/my-command.md`)
-2. Add YAML frontmatter with `model`, `allowed-tools`, and `description`
+2. Add YAML frontmatter with `model`, `allowed-tools` (if tools are needed), and `description`
 3. The `description` field controls when Claude activates the command
-4. All commands should source `~/.claude/todo-gist.env` to get the gist ID rather than hardcoding it
+4. Use `!`source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw`` to pre-fetch gist content into the prompt (saves tool calls)
+5. For write commands, also inject the gist ID with `!`source ~/.claude/todo-gist.env && echo $TODO_GIST_ID``
 
 ## Setup
 
@@ -31,7 +32,9 @@ After installing the plugin, run `/todo:install` to set up your todo list. The i
 
 ## Conventions
 
-- All write commands use heredoc piped to `/dev/stdin` instead of tmp files
+- All commands use `!`command`` syntax to pre-fetch gist content before the prompt reaches the model
+- Read-only commands (show, list, today, projects) need zero tool calls
+- Write commands use heredoc piped to `/dev/stdin` instead of tmp files
 - Due dates are stored as `{due: YYYY-MM-DD}` tags inline with items
 - Creation dates are stored as `(YYYY-MM-DD)` at the end of item text
 - Commands run on Haiku model for speed

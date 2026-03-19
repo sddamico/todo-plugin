@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), Bash(cat *), mcp:github:get_gist, mcp:github:update_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*), Bash(cat *), Bash(gh gist edit *)
 description: Create a new project section in the todo list
 ---
 
@@ -8,7 +8,11 @@ description: Create a new project section in the todo list
 
 Create a new project section with High/Medium/Low subsections.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Gist ID
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo-id.sh`
+
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Arguments
 
@@ -16,16 +20,14 @@ The user's input after `/todo:add-project` is the project name.
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-2. Check if a project with that name already exists (case-insensitive). If so, inform the user.
-3. Append a new section at the end:
+1. Check if a project with that name already exists in the todo list above (case-insensitive). If so, inform the user.
+2. Append a new section at the end:
    ```
    ## Project: <Name>
    ### High
    ### Medium
    ### Low
    ```
-4. Update `<!-- last-updated: ... -->` timestamp
-6. Write back: `update_gist({ gist_id: "$TODO_GIST_ID", filename: "todo.md", content: "<full content>" })` (MCP) or pipe via heredoc: `source ~/.claude/todo-gist.env && cat <<'EOF' | gh gist edit $TODO_GIST_ID --filename todo.md /dev/stdin`...`EOF` (CLI)
-6. Confirm: "Created project '<name>'"
+3. Update `<!-- last-updated: ... -->` timestamp
+4. Write back via heredoc: `cat <<'EOF' | gh gist edit <gist-id> --filename todo.md /dev/stdin`...`EOF`
+5. Confirm: "Created project '<name>'"

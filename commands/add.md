@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), Bash(cat *), mcp:github:get_gist, mcp:github:update_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*), Bash(cat *), Bash(gh gist edit *)
 description: Add a new todo item with optional project and priority
 ---
 
@@ -8,7 +8,11 @@ description: Add a new todo item with optional project and priority
 
 Add a new item to the shared todo list.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Gist ID
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo-id.sh`
+
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Arguments
 
@@ -20,12 +24,10 @@ The user's input after `/todo:add` is the item text. It may also include:
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-2. Parse the item text, project, and priority from the user's input
-3. Find the matching `## Project: <name>` section and `### <Priority>` subsection
-4. If the project doesn't exist, create it with High/Medium/Low subsections
-5. Append `- [ ] <item text> (YYYY-MM-DD)` with today's date. If a due date was provided, append ` {due: YYYY-MM-DD}` after the creation date.
-6. Update `<!-- last-updated: ... -->` to current UTC time
-7. Write back: `update_gist({ gist_id: "$TODO_GIST_ID", filename: "todo.md", content: "<full content>" })` (MCP) or pipe via heredoc: `source ~/.claude/todo-gist.env && cat <<'EOF' | gh gist edit $TODO_GIST_ID --filename todo.md /dev/stdin`...`EOF` (CLI)
-8. Confirm: "Added '<item>' to <project>/<priority>". If a due date was set, include it in the confirmation.
+1. Parse the item text, project, and priority from the user's input
+2. Find the matching `## Project: <name>` section and `### <Priority>` subsection in the todo list above
+3. If the project doesn't exist, create it with High/Medium/Low subsections
+4. Append `- [ ] <item text> (YYYY-MM-DD)` with today's date. If a due date was provided, append ` {due: YYYY-MM-DD}` after the creation date.
+5. Update `<!-- last-updated: ... -->` to current UTC time
+6. Write back via heredoc: `cat <<'EOF' | gh gist edit <gist-id> --filename todo.md /dev/stdin`...`EOF`
+7. Confirm: "Added '<item>' to <project>/<priority>". If a due date was set, include it in the confirmation.

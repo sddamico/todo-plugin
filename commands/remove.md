@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), Bash(cat *), mcp:github:get_gist, mcp:github:update_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*), Bash(cat *), Bash(gh gist edit *)
 description: Delete a todo item entirely by fuzzy text match
 ---
 
@@ -8,7 +8,11 @@ description: Delete a todo item entirely by fuzzy text match
 
 Permanently delete an item from the list.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Gist ID
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo-id.sh`
+
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Arguments
 
@@ -16,12 +20,10 @@ The user's input after `/todo:remove` is a fuzzy text match for the item to dele
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-2. Find items matching the text (case-insensitive substring, searches both open and completed)
-3. If multiple matches, ask the user to clarify
-4. Remove the entire line for the matched item
-5. Preserve empty `### High/Medium/Low` sections — never delete section headers
-6. Update `<!-- last-updated: ... -->` timestamp
-8. Write back: `update_gist({ gist_id: "$TODO_GIST_ID", filename: "todo.md", content: "<full content>" })` (MCP) or pipe via heredoc: `source ~/.claude/todo-gist.env && cat <<'EOF' | gh gist edit $TODO_GIST_ID --filename todo.md /dev/stdin`...`EOF` (CLI)
-8. Confirm: "Removed '<item>'"
+1. Find items in the todo list above matching the text (case-insensitive substring, searches both open and completed)
+2. If multiple matches, ask the user to clarify
+3. Remove the entire line for the matched item
+4. Preserve empty `### High/Medium/Low` sections — never delete section headers
+5. Update `<!-- last-updated: ... -->` timestamp
+6. Write back via heredoc: `cat <<'EOF' | gh gist edit <gist-id> --filename todo.md /dev/stdin`...`EOF`
+7. Confirm: "Removed '<item>'"

@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), mcp:github:get_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*)
 description: Show today's agenda — due/overdue items, then high priority, then project summary
 ---
 
@@ -8,13 +8,12 @@ description: Show today's agenda — due/overdue items, then high priority, then
 
 Show the most important items for today. This is a triaged view, not the full list.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-3. Scan ALL open items (`- [ ]`) across ALL projects for `{due: YYYY-MM-DD}` tags. Compare each due date to today's date.
+1. Scan ALL open items (`- [ ]`) across ALL projects in the todo list above for `{due: YYYY-MM-DD}` tags. Compare each due date to today's date.
 4. Display based on this priority cascade:
 
 ### Tier 1: Due or overdue items exist

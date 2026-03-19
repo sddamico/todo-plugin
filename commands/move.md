@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), Bash(cat *), mcp:github:get_gist, mcp:github:update_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*), Bash(cat *), Bash(gh gist edit *)
 description: Move a todo item between projects and/or priorities
 ---
 
@@ -8,7 +8,11 @@ description: Move a todo item between projects and/or priorities
 
 Move an item to a different project and/or priority.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Gist ID
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo-id.sh`
+
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Arguments
 
@@ -18,13 +22,11 @@ The user's input after `/todo:move` includes:
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-2. Find the item by fuzzy text match (case-insensitive substring)
-3. If multiple matches, ask the user to clarify
-4. Remove the item from its current location
-5. Add it under the target project/priority (create project section if it doesn't exist)
-6. Preserve empty section headers
-7. Update `<!-- last-updated: ... -->` timestamp
-9. Write back: `update_gist({ gist_id: "$TODO_GIST_ID", filename: "todo.md", content: "<full content>" })` (MCP) or pipe via heredoc: `source ~/.claude/todo-gist.env && cat <<'EOF' | gh gist edit $TODO_GIST_ID --filename todo.md /dev/stdin`...`EOF` (CLI)
-9. Confirm: "Moved '<item>' to <project>/<priority>"
+1. Find the item in the todo list above by fuzzy text match (case-insensitive substring)
+2. If multiple matches, ask the user to clarify
+3. Remove the item from its current location
+4. Add it under the target project/priority (create project section if it doesn't exist)
+5. Preserve empty section headers
+6. Update `<!-- last-updated: ... -->` timestamp
+7. Write back via heredoc: `cat <<'EOF' | gh gist edit <gist-id> --filename todo.md /dev/stdin`...`EOF`
+8. Confirm: "Moved '<item>' to <project>/<priority>"

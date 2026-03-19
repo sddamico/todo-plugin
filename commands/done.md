@@ -1,6 +1,6 @@
 ---
 model: haiku
-allowed-tools: Bash(gh gist *), Bash(source *), Bash(cat *), mcp:github:get_gist, mcp:github:update_gist
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/bin/*), Bash(cat *), Bash(gh gist edit *)
 description: Mark a todo item as complete by fuzzy text match
 ---
 
@@ -8,7 +8,11 @@ description: Mark a todo item as complete by fuzzy text match
 
 Mark an open item as complete.
 
-**Gist file:** `todo.md` in the gist configured at `~/.claude/todo-gist.env`
+## Gist ID
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo-id.sh`
+
+## Current todo list
+!`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`
 
 ## Arguments
 
@@ -16,11 +20,9 @@ The user's input after `/todo:done` is a fuzzy text match for the item to comple
 
 ## Steps
 
-1. Read the gist ID: `source ~/.claude/todo-gist.env` to get `$TODO_GIST_ID`
-2. Fetch the gist: `get_gist({ gist_id: "$TODO_GIST_ID" })` (MCP) or `source ~/.claude/todo-gist.env && gh gist view $TODO_GIST_ID -f todo.md --raw` (CLI)
-3. Find open items (`- [ ]`) matching the text (case-insensitive substring)
-4. If multiple matches, ask the user to clarify
-5. Change `- [ ]` to `- [x]` for the matched item
-6. Update `<!-- last-updated: ... -->` timestamp
-7. Write back: `update_gist({ gist_id: "$TODO_GIST_ID", filename: "todo.md", content: "<full content>" })` (MCP) or pipe via heredoc: `source ~/.claude/todo-gist.env && cat <<'EOF' | gh gist edit $TODO_GIST_ID --filename todo.md /dev/stdin`...`EOF` (CLI)
-8. Confirm: "Completed '<item>'"
+1. Find open items (`- [ ]`) in the todo list above matching the text (case-insensitive substring)
+2. If multiple matches, ask the user to clarify
+3. Change `- [ ]` to `- [x]` for the matched item
+4. Update `<!-- last-updated: ... -->` timestamp
+5. Write back via heredoc: `cat <<'EOF' | gh gist edit <gist-id> --filename todo.md /dev/stdin`...`EOF`
+6. Confirm: "Completed '<item>'"
