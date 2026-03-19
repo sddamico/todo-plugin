@@ -6,7 +6,7 @@ description: Show today's agenda — due/overdue items, then high priority, then
 
 # Today's Todo Agenda
 
-Show the most important items for today. This is a triaged view, not the full list.
+Show the most important items for today. This is a triaged view, not the full list. You MUST output every matching item — never summarize or skip items. A brief conversational note is fine, but the formatted agenda is the primary output.
 
 ## Current todo list
 !`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`

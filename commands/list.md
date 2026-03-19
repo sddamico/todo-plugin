@@ -6,7 +6,7 @@ description: List todo items, optionally filtered by project or priority
 
 # List Todo Items
 
-List open items from the shared todo list, with optional filtering.
+List open items from the shared todo list, with optional filtering. You MUST output every matching item — never summarize or skip items. A brief conversational note is fine, but the full formatted list is the primary output.
 
 ## Current todo list
 !`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`

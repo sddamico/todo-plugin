@@ -6,7 +6,7 @@ description: Display the full formatted todo list
 
 # Show Todo List
 
-Display the entire todo list formatted nicely.
+Display the entire todo list formatted nicely. You MUST output every item — never summarize or skip items. A brief conversational note is fine, but the full formatted list is the primary output.
 
 ## Current todo list
 !`${CLAUDE_PLUGIN_ROOT}/bin/get-todo.sh`

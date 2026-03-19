@@ -8,6 +8,7 @@ A Claude Code plugin for managing a shared todo list backed by a GitHub Gist. In
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.3.1 | 2026-03-18 | Ensure read-only commands always display all items instead of summarizing |
 | 1.3.0 | 2026-03-18 | Add `/todo:clear-done` command to bulk-remove completed items by cutoff date |
 | 1.2.0 | 2026-03-18 | Add creation dates `(created: DATE)`, completion dates `(done: DATE)`, auto-backfill skill for missing done dates, stricter due-date highlighting |
 | 1.1.0 | 2026-03-18 | Pre-fetch gist content with `!`command`` syntax for faster commands; read-only commands now need zero tool calls |
